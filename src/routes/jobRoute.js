@@ -6,12 +6,23 @@ import {
   deleteJob,
   updateJob,
 } from "../controllers/jobController.js";
-import { jobValidator } from "../middleware/validator.js";
+import {
+  handleValidationResult,
+  jobCreateValidator,
+  jobUpdateValidator,
+} from "../middleware/validator.js";
 
 const jobRuoter = express.Router();
 
-jobRuoter.route("/").get(getJobs).post(jobValidator, createJob);
+jobRuoter
+  .route("/")
+  .get(getJobs)
+  .post(jobCreateValidator, handleValidationResult, createJob);
 
-jobRuoter.route("/:id").get(getJobById).delete(deleteJob).patch(updateJob);
+jobRuoter
+  .route("/:id")
+  .get(getJobById)
+  .delete(deleteJob)
+  .patch(jobUpdateValidator, handleValidationResult, updateJob);
 
 export default jobRuoter;

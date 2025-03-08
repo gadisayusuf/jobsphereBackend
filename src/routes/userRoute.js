@@ -5,14 +5,18 @@ import {
   deleteUser,
   updateUser,
 } from "../controllers/userController.js";
-import { userValidator } from "../middleware/validator.js";
+import {
+  userCreateValidator,
+  userUpdateValidator,
+  handleValidationResult,
+} from "../middleware/validator.js";
 import express from "express";
 
 const router = express.Router();
 
 router.get("/", getUsers);
 router.get("/:id", getUser);
-router.post("/", userValidator, addUser);
+router.post("/", userCreateValidator, handleValidationResult, addUser);
 router.delete("/:id", deleteUser);
-router.patch("/:id",updateUser)
+router.patch("/:id", userUpdateValidator, handleValidationResult, updateUser);
 export default router;
