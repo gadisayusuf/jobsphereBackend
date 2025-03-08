@@ -2,7 +2,6 @@ import userModel from "../models/userModel.js";
 
 export const getUsers = async (req, res) => {
   try {
-
     const users = await userModel.find();
     res.json(users);
   } catch (error) {
@@ -32,21 +31,27 @@ export const addUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async(req,res)=>{
+export const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     await userModel.findByIdAndDelete(id);
-    res.send("User deleted successfully");
+    res.json({ message: "User deleted successfully" });
   } catch (err) {
-    res.send("Failed to delete user", err);
+    console.error(err);
+    res.status(500).json({ message: "Failed to delete user", error: err });
   }
-}
+};
+
 export const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
-    await userModel.findByIdAndUpdate(id);
-    res.send("User updated successfully");
+    const updatedUser = await userModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.json(updatedUser);
   } catch (err) {
-    res.send("failed to update user")
+    console.error(err);
+    res.status(500).json({ message: "Failed to update user", error: err });
   }
 };

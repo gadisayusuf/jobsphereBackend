@@ -5,6 +5,7 @@ import {
   createJob,
   deleteJob,
   updateJob,
+  filterJobs,
 } from "../controllers/jobController.js";
 import {
   handleValidationResult,
@@ -13,7 +14,7 @@ import {
 } from "../middleware/validator.js";
 
 const jobRuoter = express.Router();
-
+jobRuoter.route("/filter").get(filterJobs);
 jobRuoter
   .route("/")
   .get(getJobs)
