@@ -6,7 +6,7 @@ export const createJob = async (req, res) => {
     res.status(201).json(job);
   } catch (err) {
     console.log(err);
-    res.error(err);
+    res.send(err);
   }
 };
 export const getJobs = async (req, res) => {
@@ -15,7 +15,7 @@ export const getJobs = async (req, res) => {
     res.json(jobs);
   } catch (err) {
     console.log("getjobs error:", err);
-    res.error(err);
+    res.send(err);
   }
 };
 export const getJobById = async (req, res) => {
@@ -25,7 +25,7 @@ export const getJobById = async (req, res) => {
     res.status(201).json(job);
   } catch (err) {
     console.log("getjobbyId error:", err);
-    res.error(err);
+    res.send(err);
   }
 };
 export const deleteJob = async (req, res) => {
@@ -34,7 +34,7 @@ export const deleteJob = async (req, res) => {
     const job = await jobModel.findByIdAndDelete(id);
     res.send(job, "job deleted successfully");
   } catch (err) {
-    res.error("Failed to delete job", err);
+    res.send("Failed to delete job", err);
   }
 };
 

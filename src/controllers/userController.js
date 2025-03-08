@@ -38,7 +38,7 @@ export const deleteUser = async(req,res)=>{
     await userModel.findByIdAndDelete(id);
     res.send("User deleted successfully");
   } catch (err) {
-    res.error("Failed to delete user", err);
+    res.send("Failed to delete user", err);
   }
 }
 export const updateUser = async (req, res) => {
