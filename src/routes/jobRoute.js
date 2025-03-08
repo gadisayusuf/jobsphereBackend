@@ -1,11 +1,17 @@
 import express from "express";
-import { getJobs, getJobById, createJob } from "../controllers/jobController.js";
+import {
+  getJobs,
+  getJobById,
+  createJob,
+  deleteJob,
+  updateJob,
+} from "../controllers/jobController.js";
 import { jobValidator } from "../middleware/validator.js";
 
 const jobRuoter = express.Router();
 
-jobRuoter.get("/", getJobs);
-jobRuoter.get("/:id", getJobById);
-jobRuoter.post("/", jobValidator, createJob);
+jobRuoter.route("/").get(getJobs).post(jobValidator, createJob);
+
+jobRuoter.route("/:id").get(getJobById).delete(deleteJob).patch(updateJob);
 
 export default jobRuoter;

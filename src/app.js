@@ -14,7 +14,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 app.use("/api/users", userRouter);
-app.use("/api/jobs", jobRouter)
+app.use("/api/jobs", jobRouter);
 
 app.listen(PORT,()=>{
     console.log(`server Running on port ${PORT}`)

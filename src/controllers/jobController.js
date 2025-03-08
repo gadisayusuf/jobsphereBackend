@@ -28,3 +28,25 @@ export const getJobById = async (req, res) => {
     res.error(err);
   }
 };
+export const deleteJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const job = await jobModel.findByIdAndDelete(id);
+    res.send(job, "job deleted successfully");
+  } catch (err) {
+    res.error("Failed to delete job", err);
+  }
+};
+
+export const updateJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updatedJob = await jobModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.send(updatedJob);
+  } catch (err) {
+    console.log(err);
+    res.send("Failed to updateJob");
+  }
+};
