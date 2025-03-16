@@ -15,7 +15,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
-app.use("/api/users", userRouter);
+app.use("/users", userRouter);
 app.use("/api/jobs", jobRouter);
 
 app.listen(PORT, () => {

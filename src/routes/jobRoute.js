@@ -8,11 +8,10 @@ import {
   filterJobs,
 } from "../controllers/jobController.js";
 import {
-  handleValidationResult,
   jobCreateValidator,
   jobUpdateValidator,
-} from "../middleware/validator.js";
-
+} from "../validation/validator.js";
+import { handleValidationResult } from "../middleware/validation.middleware.js";
 const jobRuoter = express.Router();
 jobRuoter.route("/filter").get(filterJobs);
 jobRuoter

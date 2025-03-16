@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 
 export const jobCreateValidator = [
   body("title").notEmpty().withMessage("Title is required"),
@@ -47,39 +47,46 @@ export const jobUpdateValidator = [
   body("currency").optional().notEmpty().withMessage("Currency must be stated"),
 ];
 
-export const userCreateValidator = [
+export const registerValidator = [
   body("name")
+    .trim()
     .notEmpty()
-    .withMessage("Name is Required")
+    .withMessage("User Name is Required")
     .isLength({ min: 5 })
     .withMessage("Name must be at least 5 characters long"),
-  body("age")
+  body("email").trim().notEmpty().withMessage("Email must be a valid"),
+  body("password")
+    .trim()
     .notEmpty()
-    .withMessage("Age is Required")
-    .isInt({ min: 1 })
-    .withMessage("Age must be a positive number"),
+    .withMessage("password is Required")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("password must be a  8 character long"),
 ];
 
-export const userUpdateValidator = [
+export const updateValidator = [
   body("name")
-    .optional()
+    .trim()
     .notEmpty()
-    .withMessage("Name is Required")
+    .withMessage("User Name is Required")
     .isLength({ min: 5 })
     .withMessage("Name must be at least 5 characters long"),
-  body("age")
-    .optional()
+  body("email").trim().notEmpty().withMessage("Email must be a valid"),
+  body("password")
+    .trim()
     .notEmpty()
-    .withMessage("Age is Required")
-    .isInt({ min: 1 })
-    .withMessage("Age must be a positive number"),
+    .withMessage("password is Required")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("password must be atleast 8 character long"),
 ];
 
-export const handleValidationResult = (req, res, next) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log(errors);
-    return res.status(400).json({ errors: errors.array() });
-  }
-  next();
-};
+export const loginValidator = [
+  body("email").trim().notEmpty().withMessage("Email must be a valid"),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("password is Required")
+    .isLength({ min: 8, max: 20 })
+    .withMessage("password must be atleast 8 character long"),
+];
+
+
